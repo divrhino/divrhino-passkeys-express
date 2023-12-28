@@ -1,4 +1,6 @@
 const express = require('express')
+const multer = require('multer')
+const cookieParser = require('cookie-parser')
 const passport = require('passport')
 const session = require('express-session')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
@@ -22,6 +24,12 @@ app.use(layouts)
 app.set('views', path.join(__dirname, 'app/views'))
 app.set('layout', 'layouts/application')
 app.set('view engine', 'ejs')
+
+// JSON, form data and url encoding
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(multer().none())
+app.use(cookieParser())
 
 // Static files
 app.use(express.static(__dirname + '/public'))
