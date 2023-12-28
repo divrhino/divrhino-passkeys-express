@@ -9,6 +9,7 @@ class PassportService {
         // 1. configure passport to use WebAuthn Strategy
         passport.use(this.useWebauthnStrategy(store))
         // 2. passport serialise user
+        passport.serializeUser(this.serialiseUserFn)
         // 3. passport deserialise user
     }
 
@@ -18,6 +19,13 @@ class PassportService {
             this.verify,
             this.register
         )
+    }
+
+    // Serialise user to token
+    serialiseUserFn(user, done) {
+        process.nextTick(() => {
+            done(null, { id: user.id, email: user.email })
+        })
     }
 
     // Verify callback
