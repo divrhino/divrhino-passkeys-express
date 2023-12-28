@@ -19,7 +19,14 @@ const admin = new (require('../app/controllers/admin'))
 router.get('/', pages.welcome, admin.dashboard)
 
 router.get('/login', auth.login)
+router.post(
+    '/login/public-key',
+    auth.passportCheck(),
+    auth.admitUser,
+    auth.denyUser
+)
 
 router.get('/register', auth.register)
+router.post('/register/public-key/challenge', auth.createChallengeFrom(store))
 
 module.exports = router
