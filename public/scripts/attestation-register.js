@@ -5,6 +5,7 @@ class Register {
         // 2. Use challenge to create public key credential pair
         const credentials = await this.createPublicKeyPairWith(challenge)
         // 3. Send publicKey+challenge to server to create new user
+        const currentUser = await this.loginWith(credentials)
         // 4. Redirect to user's dashboard
     }
 
@@ -52,6 +53,40 @@ class Register {
 
         const newCredentials = await navigator.credentials.create(options)
         return newCredentials
+    }
+
+    buildLoginOptionsWith(userCredentials) {
+        const body = {
+            response: {
+                clientDataJSON: base64url.encode(
+                    userCredentials.response.clientDataJSON
+                ),
+                attestationObject: base64url.encode(
+                    userCredentials.response.attestationObject
+                ),
+            },
+        }
+
+        if (userCredentials.response.getTransports) {
+            body.response.transports =
+            userCredentials.response.getTransports()
+        }
+
+        return body
+    }
+
+    async loginWith(userCredentials) {
+        const options = this.buildLoginOptionsWith(userCredentials)
+
+        const response = await fetch('/login/public-key', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(options)
+        })
+
+        return response.json()
     }
     
 }
