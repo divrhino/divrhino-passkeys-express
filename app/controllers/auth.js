@@ -1,9 +1,29 @@
 const base64url = require('base64url')
 const uuid = require('uuid').v4
+const passport = require('passport')
 
 class AuthController {
     login(req, res) {
         res.render('auth/login')
+    }
+
+    passportCheck() {
+        return passport.authenticate('webauthn', {
+            failureMessage: true,
+            failWithError: true,
+        })
+    }
+
+    admitUser(req, res, next) {
+        res.json({ ok: true, destination: '/' })
+    }
+
+    denyUser(err, req, res, next) {
+        const cxx = Math.floor(err.status / 100)
+    
+        if (cxx != 4) return next(err)
+    
+        res.json({ ok: false, destination: '/login' })
     }
 
     register(req, res) {
