@@ -5,6 +5,7 @@ class Login {
         // 2. Get challenge from server (Relying Party)
         const challenge = await this.getChallenge()
         // 3. Use existing public key credential to authenticate user
+        const credentials = await this.authenticateUserWith(challenge)
         // 4. Use public key credential to login user
 
         // 5. Redirect to user's dashboard
@@ -25,6 +26,17 @@ class Login {
         })
 
         return response.json()
+    }
+
+    async authenticateUserWith(challengeResponse) {
+        const options = {
+            mediation: 'conditional',
+            publicKey: {
+                challenge: base64url.decode(challengeResponse.challenge),
+            },
+        }
+        const credentials = await navigator.credentials.get(options)
+        return credentials
     }
 }
 
