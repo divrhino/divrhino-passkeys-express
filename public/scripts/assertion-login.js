@@ -9,6 +9,7 @@ class Login {
         // 4. Use public key credential to login user
         const currentUser = await this.loginWith(credentials)
         // 5. Redirect to user's dashboard
+        this.redirect(currentUser)
     }
 
     async checkConditionalMediationSupport() {
@@ -78,6 +79,10 @@ class Login {
         })
 
         return response.json()
+    }
+
+    redirect(currentUser) {
+        window.location.href = currentUser.destination
     }
 }
 
