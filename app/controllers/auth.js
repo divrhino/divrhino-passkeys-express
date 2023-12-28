@@ -3,10 +3,6 @@ const uuid = require('uuid').v4
 const passport = require('passport')
 
 class AuthController {
-    login(req, res) {
-        res.render('auth/login')
-    }
-
     passportCheck() {
         return passport.authenticate('webauthn', {
             failureMessage: true,
@@ -24,6 +20,19 @@ class AuthController {
         if (cxx != 4) return next(err)
     
         res.json({ ok: false, destination: '/login' })
+    }
+
+    login(req, res) {
+        res.render('auth/login')
+    }
+
+    getChallengeFrom(store) {
+        return (req, res, next) => {
+            store.challenge(req, (err, challenge) => {
+                if (err) return next(err)
+                res.json({ challenge: base64url.encode(challenge) })
+            })
+        }
     }
 
     logout(req, res, next) {
