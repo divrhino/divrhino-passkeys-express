@@ -3,11 +3,14 @@ version: '3.8'
 services:
     web:
         build: .
+        env_file:
+            - .env
         ports:
             - "3000:3000"
         volumes:
             - .:/usr/src/app
             - node_modules:/usr/src/app/node_modules
         command: npx nodemon index.js
+
 volumes:
     node_modules:
