@@ -3,6 +3,7 @@ class Register {
         // 1. Get Challenge from server (Relying Party)
         const challenge = await this.getChallenge(event)
         // 2. Use challenge to create public key credential pair
+        const credentials = await this.createPublicKeyPairWith(challenge)
         // 3. Send publicKey+challenge to server to create new user
         // 4. Redirect to user's dashboard
     }
@@ -17,6 +18,40 @@ class Register {
         })
 
         return response.json()
+    }
+
+    async createPublicKeyPairWith(challengeResponse) {
+        const options = {
+            publicKey: {
+                rp: { name: 'Divrhinopasskeys' },
+                user: {
+                    id: base64url.decode(challengeResponse.user.id),
+                    name: challengeResponse.user.name,
+                    displayName: challengeResponse.user.name,
+                },
+                challenge: base64url.decode(challengeResponse.challenge),
+                pubKeyCredParams: [
+                    {
+                        type: 'public-key',
+                        alg: -7, // ES256
+                    },
+                    {
+                        type: 'public-key',
+                        alg: -257, // RS256
+                    },
+                    {
+                        type: 'public-key',
+                        alg: -8, // Ed25519
+                    },
+                ],
+                authenticatorSelection: {
+                    userVerification: 'preferred',
+                },
+            },
+        }
+
+        const newCredentials = await navigator.credentials.create(options)
+        return newCredentials
     }
     
 }
