@@ -62,7 +62,6 @@
     "minimatch": "^3.1.2",
     "ms": "^2.0.0",
     "negotiator": "^0.6.3",
-    "nodemon": "^3.0.2",
     "nopt": "^1.0.10",
     "normalize-path": "^3.0.0",
     "object-inspect": "^1.13.1",
@@ -102,5 +101,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
 }
