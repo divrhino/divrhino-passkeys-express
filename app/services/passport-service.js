@@ -16,7 +16,7 @@ class PassportService {
         return new WebAuthnStrategy(
             { store: store },
             this.verify,
-            this.register // needs to be fleshed out
+            this.register
         )
     }
 
@@ -61,7 +61,42 @@ class PassportService {
     }
 
     // Register callback
-    async register(user, id, publicKey, done) { }
+    async register(user, id, publicKey, done) {
+        const transaction = await db.transaction()
+        try {
+            const newUser = await models.User.create(
+                {
+                    email: user.name,
+                    handle: user.id,
+                },
+                { transaction }
+            )
+
+            if (newUser === null) {
+                return done(null, false, { message: 'Could not create user. ' })
+            }
+
+            const newCredentials = await models.PublicKeyCredentials.create(
+                {
+                    user_id: newUser.id,
+                    external_id: id,
+                    public_key: publicKey,
+                },
+                { transaction }
+            )
+
+            if (newCredentials === null) {
+                return done(null, false, { message: 'Could not create public key. ' })
+            }
+
+            await transaction.commit()
+
+            return done(null, newUser)
+        } catch (error) {
+            await transaction.rollback()
+            throw error
+        }
+    }
 
 }
 
