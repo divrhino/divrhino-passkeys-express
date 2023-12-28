@@ -26,6 +26,8 @@ router.post(
     auth.denyUser
 )
 
+router.post('/logout', auth.logout)
+
 router.get('/register', auth.register)
 router.post('/register/public-key/challenge', auth.createChallengeFrom(store))
 
