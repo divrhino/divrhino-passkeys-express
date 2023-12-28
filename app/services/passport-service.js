@@ -11,6 +11,7 @@ class PassportService {
         // 2. passport serialise user
         passport.serializeUser(this.serialiseUserFn)
         // 3. passport deserialise user
+        passport.deserializeUser(this.deserialiseUserFn)
     }
 
     useWebauthnStrategy(store) {
@@ -25,6 +26,13 @@ class PassportService {
     serialiseUserFn(user, done) {
         process.nextTick(() => {
             done(null, { id: user.id, email: user.email })
+        })
+    }
+
+    // Deserialise user from token
+    deserialiseUserFn(user, done) {
+        process.nextTick(() => {
+            return done(null, user)
         })
     }
 
