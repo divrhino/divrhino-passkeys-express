@@ -7,6 +7,7 @@ class Register {
         // 3. Send publicKey+challenge to server to create new user
         const currentUser = await this.loginWith(credentials)
         // 4. Redirect to user's dashboard
+        this.redirect(currentUser)
     }
 
     async getChallenge(event) {
@@ -87,6 +88,10 @@ class Register {
         })
 
         return response.json()
+    }
+
+    redirect(currentUser) {
+        window.location.href = currentUser.destination
     }
     
 }
