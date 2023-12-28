@@ -12,6 +12,9 @@ app.set('views', path.join(__dirname, 'app/views'))
 app.set('layout', 'layouts/application')
 app.set('view engine', 'ejs')
 
+// Static files
+app.use(express.static(__dirname + '/public'))
+
 // Routes
 app.use('/', require('./config/routes'))
 

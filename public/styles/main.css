@@ -1,0 +1,327 @@
+/* Typefaces */
+/* Fonts: Grandstander, Raleway */
+@import url('https://fonts.googleapis.com/css2?family=Grandstander:wght@400;600;700&family=Raleway&display=swap');
+
+
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+    isolation: isolate;
+}
+
+/* Variables */
+:root {
+    /* Colours */
+    --colour-palepink: #FFF0FD;
+    --colour-purple: #4C51D6;
+    --colour-pink: rgb(200, 91, 162);
+    --colour-mutedpurple: #C6CBFF;
+    --colour-lightpurple: #7d84d3;
+    /* Box Properties */
+    --padding: 15px;
+    --padding-small: 5px;
+    /* Box Design */
+    --border-radius: 10px;
+    --border-radius-small: 5px;
+    --box-shadow: 1px 1px 10px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Global styles */
+body {
+    /* https://www.joshwcomeau.com/gradient-generator */
+    background-image: linear-gradient(160deg,
+            hsl(238, 63%, 57%) 0%,
+            hsl(266deg 59% 57%) 33%,
+            hsl(293deg 54% 57%) 67%,
+            hsl(321, 50%, 57%) 100%);
+    font-family: 'Raleway', sans-serif;
+    /* Set global custom cursor */
+    cursor: url('/images/cursor-default.png'), auto;
+}
+
+h1,
+h2 {
+    color: var(--colour-palepink);
+    font-family: 'Grandstander', serif;
+}
+
+h1 {
+    font-weight: 700;
+    text-align: center;
+}
+
+p {
+    font-size: 16px;
+}
+
+/* Custom cursors */
+a {
+    cursor: url('/images/cursor-pointer.png'), auto;
+}
+
+input[type="text"],
+input[type="email"] {
+    cursor: url('/images/cursor-text.png'), auto;
+}
+
+input[type="submit"] {
+    cursor: url('/images/cursor-pointer.png'), auto;
+}
+
+label {
+    cursor: url('/images/cursor-default.png'), auto;
+}
+
+/* Application layout */
+.container {
+    display: flex;
+    container-type: inline-size;
+    container-name: main-wrapper;
+    width: 100%;
+    max-width: 960px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding-top: var(--padding);
+    padding-bottom: var(--padding);
+}
+
+.container-wide {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    padding: var(--padding);
+}
+
+@media screen and (max-width: 960px) {
+    .container {
+        padding-left: var(--padding);
+        padding-right: var(--padding);
+    }
+}
+
+.site-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--padding-small) var(--padding);
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+
+    >h1 {
+        color: var(--colour-purple)
+    }
+}
+
+.site-logo,
+.empty-logo {
+    width: 150px;
+    margin-bottom: var(--padding);
+}
+
+.empty-logo {
+    opacity: 0.2;
+}
+
+.button-link {
+    text-decoration: none;
+    background-color: var(--colour-purple);
+    color: white;
+    padding: var(--padding-small) var(--padding);
+    border-radius: var(--border-radius-small);
+    margin: var(--padding-small);
+
+    &:hover {
+        filter: brightness(1.2);
+    }
+}
+
+/* Welcome page */
+.site-intro {
+    width: 100%;
+    max-width: 500px;
+    color: white;
+    text-align: center;
+}
+
+.auth-options {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--padding);
+    margin-bottom: 30%;
+}
+
+/* Auth forms - general */
+.centralising-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.logout-form {
+    >form input[type="submit"] {
+        padding-top: var(--padding-small);
+        padding-bottom: var(--padding-small);
+        padding-left: var(--padding);
+        padding-right: var(--padding);
+        color: white;
+        background-color: var(--colour-purple);
+        border-radius: var(--border-radius-small);
+        border: none;
+
+        &:hover {
+            filter: brightness(1.2);
+        }
+    }
+}
+
+.auth-form {
+    width: 50%;
+    margin-bottom: 30%;
+
+    >form {
+        margin-bottom: var(--padding);
+        padding: var(--padding);
+        background-color: white;
+        box-shadow: var(--box-shadow);
+        border-radius: var(--border-radius);
+    }
+
+    >form input {
+        width: 100%;
+        padding: var(--padding-small) var(--padding);
+        border: 1px solid var(--colour-mutedpurple);
+        border-radius: var(--border-radius-small);
+        outline: none;
+    }
+
+    >form input::placeholder {
+        color: var(--colour-lightpurple);
+    }
+
+    .input-field {
+        display: block;
+        position: relative;
+        padding: var(--padding-small);
+    }
+
+    .input-field:focus-within {
+        /* padding + border = 5px. This matches the base styles for this element */
+        padding: 3px;
+        border: 2px dotted var(--colour-lightpurple);
+        border-radius: var(--border-radius-small);
+    }
+
+    >form input[type="submit"] {
+        margin-top: var(--padding);
+        padding-top: var(--padding-small);
+        padding-bottom: var(--padding-small);
+        color: white;
+        background-color: var(--colour-purple);
+        border: none;
+
+        &:hover {
+            filter: brightness(1.2);
+        }
+    }
+
+    >form label {
+        display: block;
+        margin-bottom: var(--padding);
+    }
+
+    .input-label {
+        position: relative;
+        color: var(--colour-purple);
+
+        &::after {
+            content: '*';
+            position: absolute;
+            top: -10px;
+            color: var(--colour-pink);
+            font-size: 36px;
+        }
+    }
+
+    >p,
+    a {
+        color: white;
+        text-align: center;
+    }
+
+
+}
+
+/* Admin - Dashboard page */
+.admin-wrapper {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    align-items: center;
+    width: 100%;
+
+    .empty-dashboard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--padding);
+        color: white;
+        margin-bottom: 20%;
+    }
+}
+
+/* Responsive containers */
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/@container */
+@container main-wrapper (max-width: 500px) {
+    .auth-form {
+        width: 100%;
+    }
+}
