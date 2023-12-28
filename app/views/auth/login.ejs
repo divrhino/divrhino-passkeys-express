@@ -1,0 +1,25 @@
+<div class="container">
+    <main class="centralising-wrapper">
+        <a href="/">
+            <img src="/images/divrhino-logo.png" alt="DivRhino logo" class="site-logo">
+        </a>
+        <h1>Login</h1>
+    
+        <section class="auth-form">
+            <form>
+                <label for="email">
+                    <span class="input-label">email</span>
+                    <span class="input-field">
+                        <input id="email" name="email" type="email" autocomplete="email webauthn" placeholder="Enter your email" required autofocus>
+                    </span>
+                </label>
+                <input type="submit" value="Login">
+            </form>
+    
+            <p class="help">Don't have an account yet? <a href="/register">Register</a></p>
+        </section>
+    </main>
+</div>
+
+<script type="text/javascript" src="/scripts/base64url.js"></script>
+<script type="text/javascript" src="/scripts/assertion-login.js"></script>

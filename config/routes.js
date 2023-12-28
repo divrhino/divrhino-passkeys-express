@@ -7,6 +7,8 @@ const auth  = new (require('../app/controllers/auth'))
 
 router.get('/', pages.welcome)
 
+router.get('/login', auth.login)
+
 router.get('/register', auth.register)
 
 module.exports = router
